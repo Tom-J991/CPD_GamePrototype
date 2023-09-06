@@ -1,5 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+//Hole Goal Script
+//by: Jackson
+//Last Edited: 6/9/2023 3:18 pm
+
 using UnityEngine;
 
 /// <summary>
@@ -9,7 +11,8 @@ using UnityEngine;
 /// </summary>
 public class HoleGoalScript : MonoBehaviour
 {
-    private ParticleSystem m_successParticles;
+    ParticleSystem m_successParticles;
+    [Tooltip("An indecator of when the goal is reached.")]
     public bool m_GoalReached = false;
     private void Start()
     {
