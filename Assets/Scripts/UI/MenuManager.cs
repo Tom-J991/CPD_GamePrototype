@@ -1,6 +1,6 @@
 //Menu Manager script
 //by Jackson
-//Last Edited 7/9/2023 10 am
+//Last Edited 7/9/2023 10:50 am
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
