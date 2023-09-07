@@ -1,3 +1,8 @@
+// Score Script
+// by: Halen Finlay
+// date: 06/09/2023
+// last modified: 07/09/2023
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,11 +20,12 @@ public class Score : MonoBehaviour
 
     [Header("Level Details")]
     public float[] targetScores = { 300f, 200f, 100f };
-    public float targetTime = 10f;
+    public float targetTime = 40f;
 
     [Header("Score Variables")]
     public float finalScore;
     public float timeBonus;
+    public float speedBonus;
     public List<float> penalties;
 
     [Header("Active Variables")]
@@ -30,35 +36,64 @@ public class Score : MonoBehaviour
     {
         get { return m_timer; }
     }
-
+    [Tooltip("Keeps track of the player's highest speed.")]
+    [SerializeField] private float m_maxSpeed;
     [Tooltip("Keeps track of which obstacles the Player has hit.")]
     [SerializeField] private List<GameObject> m_hitObstacles;
-    
+
+    // Private variables
+    private Rigidbody m_player;
+
     // Start is called before the first frame update
     void Start()
     {
         m_timer = 0;
         m_hitObstacles.Clear();
+        m_player = gameObject.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playingLevel) m_timer += Time.deltaTime; ;
+        // Update timer if the player is playing the level
+        if (playingLevel) m_timer += Time.deltaTime;
+
+        // Update the player's highest reached speed if they have reached a new high
+        if (m_player.velocity.magnitude > m_maxSpeed) m_maxSpeed = m_player.velocity.magnitude;
     }
 
+    // Calculate the player's bonuses, penalties, and final score
     private void CalculateScore()
     {
+        // Calculate penalties
+        // If no obstacles were hit, provide a bonus score instead
         float totalPenalties = 0;
-        foreach (GameObject hit in m_hitObstacles)
+        if (m_hitObstacles.Count == 0) totalPenalties = -100f;
+        else
         {
-            float penalty = hit.GetComponent<Obstacle>().penalty;
-            penalties.Add(penalty);
-            totalPenalties += penalty;
+            foreach (GameObject hit in m_hitObstacles)
+            {
+                float penalty = hit.GetComponent<Obstacle>().penalty;
+                penalties.Add(penalty);
+                totalPenalties += penalty;
+            }
         }
-        timeBonus = Mathf.Floor(targetTime / m_timer * 1000);
 
-        finalScore = timeBonus - totalPenalties;
+        // Calculate time bonus
+        if (m_timer >= targetTime)
+        {
+            timeBonus = 0;
+        }
+        else
+        {
+            timeBonus = Mathf.Floor(1800 * Mathf.Pow(targetTime - m_timer, 2) / Mathf.Pow(targetTime, 2));
+        }
+
+        // Calculate speed bonus
+        speedBonus = Mathf.Floor(m_maxSpeed * 10);
+
+        // Calculate final score based on all bonuses and penalties
+        finalScore = timeBonus + speedBonus - totalPenalties;
     }
 
     public void OnCollisionEnter(Collision other)
@@ -76,6 +111,7 @@ public class Score : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        // Checks if the player has reached the goal
         if (other.gameObject.GetComponent<Goal>())
         {
             timerUI.gameObject.SetActive(false);

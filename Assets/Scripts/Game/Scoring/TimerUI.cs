@@ -1,3 +1,8 @@
+// Score Script
+// by: Halen Finlay
+// date: 06/09/2023
+// last modified: 06/09/2023
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
