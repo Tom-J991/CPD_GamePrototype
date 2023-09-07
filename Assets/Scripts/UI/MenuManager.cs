@@ -1,11 +1,11 @@
-//Pause Menu Script
+//Menu Manager script
 //by Jackson
-//Last Edited 6/9/2023 4:35 pm
+//Last Edited 7/9/2023 10 am
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenuScript : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
     [Tooltip("The menus to display game object.")]
     public GameObject[] m_menus;
