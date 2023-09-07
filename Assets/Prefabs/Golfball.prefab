@@ -65,6 +65,7 @@ Transform:
   m_Children:
   - {fileID: 2368893134009967082}
   - {fileID: 2368893135097246353}
+  - {fileID: 8831579087754389673}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -126,7 +127,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c2a4ae766ebdbf4abdaff0e0d9f6aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 12
+  movementSpeed: 24
+  groundCheck: {fileID: 8831579087754389673}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 1
+  maxBoost: 4096
+  boostIncrement: 4096
 --- !u!1 &2368893135097246358
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,12 +173,57 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2368893135097246358}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: a0aa05610cb38e642a02267b7717e541, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5906280578124812150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8831579087754389673}
+  - component: {fileID: 2747100091281560062}
+  m_Layer: 0
+  m_Name: Ground
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8831579087754389673
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5906280578124812150}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2368893134137386145}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2747100091281560062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5906280578124812150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7818ef237b7f2e4bb088831885d867b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 2368893134137386145}
 --- !u!1001 &2368893133813489628
 PrefabInstance:
   m_ObjectHideFlags: 0
