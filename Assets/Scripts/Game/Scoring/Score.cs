@@ -7,6 +7,12 @@ public class Score : MonoBehaviour
     [Tooltip("Tracks if the Player is currently running the level")]
     public bool playingLevel;
 
+    [Header("Canvases")]
+    [Tooltip("Reference to the TimerUI canvas in the scene.")]
+    public TimerUI timerUI;
+    [Tooltip("Reference to the ScoreUI canvas in the scene.")]
+    public ScoreUI scoreUI;
+
     [Header("Level Details")]
     public float[] targetScores = { 300f, 200f, 100f };
     public float targetTime = 10f;
@@ -20,8 +26,12 @@ public class Score : MonoBehaviour
     [Tooltip("Time passed since the Player started the level.")]
     [Min(0)]
     [SerializeField] private float m_timer;
+    public float timer
+    {
+        get { return m_timer; }
+    }
 
-    [Tooltip("Penalties for each Obstacle the Player has hit will be subtracted from their score at the end of the level.")]
+    [Tooltip("Keeps track of which obstacles the Player has hit.")]
     [SerializeField] private List<GameObject> m_hitObstacles;
     
     // Start is called before the first frame update
@@ -46,31 +56,31 @@ public class Score : MonoBehaviour
             penalties.Add(penalty);
             totalPenalties += penalty;
         }
-        timeBonus = Mathf.Floor(targetTime / m_timer * 100);
+        timeBonus = Mathf.Floor(targetTime / m_timer * 1000);
 
         finalScore = timeBonus - totalPenalties;
     }
 
     public void OnCollisionEnter(Collision other)
     {
-        if (playingLevel)
+        // If the object the Player collided with has the Obstacle component and is not
+        // already in the list of collided objects, then add it to the list
+        if (other.gameObject.GetComponent<Obstacle>())
         {
-            // If the object the Player collided with has the Obstacle component and is not
-            // already in the list of collided objects, then add it to the list
-            if (other.gameObject.GetComponent<Obstacle>())
+            if (m_hitObstacles.IndexOf(other.gameObject) < 0)
             {
-                if (m_hitObstacles.IndexOf(other.gameObject) < 0)
-                {
-                    m_hitObstacles.Add(other.gameObject);
-                }
+                m_hitObstacles.Add(other.gameObject);
             }
+        }
+    }
 
-            // If the player collides with the goal, the level has ended, so calc the final scores
-            if (other.gameObject.GetComponent<Goal>())
-            {
-                playingLevel = false;
-                CalculateScore();
-            }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<Goal>())
+        {
+            timerUI.gameObject.SetActive(false);
+            CalculateScore();
+            scoreUI.gameObject.SetActive(true);
         }
     }
 }
