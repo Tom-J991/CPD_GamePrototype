@@ -3,6 +3,7 @@
 //Last edited 7/9/2023 12:07 am
 
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MobileInputManager : MonoBehaviour
 {
@@ -11,6 +12,12 @@ public class MobileInputManager : MonoBehaviour
     [SerializeField]
     [Tooltip("The distance from the initial finger placement at which the player begins drifting.\nIgnores the X axis.")]
     float m_driftThreashhold;
+    bool m_userDrifting;
+
+    [SerializeField]
+    Image m_leftIcon;
+    [SerializeField]
+    Image m_rightIcon;
 
     void Update()
     {
@@ -42,19 +49,53 @@ public class MobileInputManager : MonoBehaviour
             {
                 StartDrifting();
             }
+            else if(m_userDrifting)
+            {
+                EndDrifting();
+            }
         }
     }
     private void LeftSideAction()
     {
         Debug.Log("Left side pressed");
+        if (m_userDrifting)
+        {
+            m_leftIcon.color = Color.blue;
+        }
+        else
+        {
+            m_leftIcon.color = Color.green;
+        }
+
+        if (Input.GetTouch(0).phase == TouchPhase.Ended)
+        {
+            m_leftIcon.color = Color.white;
+        }
     }
     private void RightSideAction()
     {
         Debug.Log("Right side pressed");
+        if(m_userDrifting)
+        {
+            m_rightIcon.color = Color.blue;
+        }
+        else
+        {
+            m_rightIcon.color = Color.green;
+        }
 
+        if(Input.GetTouch(0).phase == TouchPhase.Ended)
+        {
+            m_rightIcon.color = Color.white;
+        }
     }
     private void StartDrifting()
     {
         Debug.Log("Player is now drifting");
+        m_userDrifting = true;
+    }
+    private void EndDrifting()
+    {
+        m_userDrifting = false;
     }
 }
