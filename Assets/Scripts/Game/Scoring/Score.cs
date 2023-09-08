@@ -89,6 +89,8 @@ public class Score : MonoBehaviour
             timeBonus = Mathf.Floor(1800 * Mathf.Pow(targetTime - m_timer, 2) / Mathf.Pow(targetTime, 2));
         }
 
+        if (timeBonus > 1000) timeBonus = 1000f;
+
         // Calculate speed bonus
         speedBonus = Mathf.Floor(m_maxSpeed * 10);
 
