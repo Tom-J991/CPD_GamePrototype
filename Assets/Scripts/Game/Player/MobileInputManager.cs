@@ -1,6 +1,6 @@
 //Mobile Input Manager
 //by Jackson
-//Last edited 7/9/2023 12:07 am
+//Last edited 8/9/2023 10:27 am
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +13,7 @@ public class MobileInputManager : MonoBehaviour
     [Tooltip("The distance from the initial finger placement at which the player begins drifting.\nIgnores the X axis.")]
     float m_driftThreashhold;
     bool m_userDrifting;
+    bool m_readInputs = true;
 
     [SerializeField]
     Image m_leftIcon;
@@ -21,37 +22,40 @@ public class MobileInputManager : MonoBehaviour
 
     void Update()
     {
-        //First check if there is any inputs
-        //I think that this will only check the first input so if wanna change it, it may need some work -J
-        if(Input.touchCount > 0)
+        if (m_readInputs)
         {
-            //Save positions
-            m_fingerPosition = Input.GetTouch(0).position;
-            if(Input.GetTouch(0).phase == TouchPhase.Began)
+            //First check if there is any inputs
+            //I think that this will only check the first input so if wanna change it, it may need some work -J
+            if (Input.touchCount > 0)
             {
-                m_initialFingerY = m_fingerPosition.y;
-            }
+                //Save positions
+                m_fingerPosition = Input.GetTouch(0).position;
+                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                {
+                    m_initialFingerY = m_fingerPosition.y;
+                }
 
-            //Compare positions
-            //If we're over half of the screen's width, we're on the right side
-            if(m_fingerPosition.x > Screen.width / 2)
-            {
-                RightSideAction();
-            }
-            else
-            {
-                LeftSideAction();
-            }
+                //Compare positions
+                //If we're over half of the screen's width, we're on the right side
+                if (m_fingerPosition.x > Screen.width / 2)
+                {
+                    RightSideAction();
+                }
+                else
+                {
+                    LeftSideAction();
+                }
 
-            //Check the difference between the initial finger placement and current placement
-            //Not using |ABS| here as we only want to check if the player is pulling down
-            if(m_initialFingerY - m_fingerPosition.y > m_driftThreashhold)
-            {
-                StartDrifting();
-            }
-            else if(m_userDrifting)
-            {
-                EndDrifting();
+                //Check the difference between the initial finger placement and current placement
+                //Not using |ABS| here as we only want to check if the player is pulling down
+                if (m_initialFingerY - m_fingerPosition.y > m_driftThreashhold)
+                {
+                    StartDrifting();
+                }
+                else if (m_userDrifting)
+                {
+                    EndDrifting();
+                }
             }
         }
     }
@@ -97,5 +101,13 @@ public class MobileInputManager : MonoBehaviour
     private void EndDrifting()
     {
         m_userDrifting = false;
+    }
+    public void ToggleInputReading()
+    {
+        m_readInputs = !m_readInputs;
+    }
+    public void SetInputReading(bool setting)
+    {
+        m_readInputs = setting;
     }
 }

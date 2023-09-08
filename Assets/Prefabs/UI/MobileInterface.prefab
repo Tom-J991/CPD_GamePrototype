@@ -220,6 +220,7 @@ GameObject:
   - component: {fileID: 8388298083467521373}
   - component: {fileID: 8388298083467521375}
   - component: {fileID: 8388298083467521374}
+  - component: {fileID: 518041108581180786}
   m_Layer: 5
   m_Name: MobileInterface
   m_TagString: Untagged
@@ -288,6 +289,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &518041108581180786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8388298083467521372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c395146cd4f6d4ba96845472e54e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_driftThreashhold: 300
+  m_leftIcon: {fileID: 8388298083569707347}
+  m_rightIcon: {fileID: 8388298082940070357}
+  m_mover: {fileID: 0}
 --- !u!1 &8388298083569707345
 GameObject:
   m_ObjectHideFlags: 0
