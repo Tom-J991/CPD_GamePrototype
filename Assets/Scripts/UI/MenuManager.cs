@@ -1,6 +1,6 @@
 //Menu Manager script
 //by Jackson
-//Last Edited 7/9/2023 10 am
+//Last Edited 7/9/2023 10:27 am
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -58,6 +58,20 @@ public class MenuManager : MonoBehaviour
     public void HideMenu(int i)
     {
         m_menus[i].SetActive(false);
+
+        bool check = false;
+        foreach(GameObject menu in m_menus)
+        {
+            if(menu.activeSelf == true)
+            {
+                check = true;
+                break;
+            }
+            if(!check)
+            {
+                ResumeTime();
+            }
+        }
     }
     /// <summary>
     /// Hides the currently active menu
@@ -84,6 +98,18 @@ public class MenuManager : MonoBehaviour
 #else
         Application.Quit(code);
 #endif
+    }
+    public void SetTimeScale(float scale)
+    {
+        Time.timeScale = scale;
+    }
+    public void PauseTime()
+    {
+        Time.timeScale = 0;
+    }
+    public void ResumeTime()
+    {
+        Time.timeScale = 1;
     }
     /*
     public void DisplayPauseMenu()

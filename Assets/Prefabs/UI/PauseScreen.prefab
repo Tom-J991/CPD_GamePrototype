@@ -453,7 +453,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 853474781042388173, guid: c7873456c37b4b64f870bbac3fcff121, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 853474781042388173, guid: c7873456c37b4b64f870bbac3fcff121, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -461,7 +461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 853474781042388173, guid: c7873456c37b4b64f870bbac3fcff121, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 853474781042388173, guid: c7873456c37b4b64f870bbac3fcff121, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -481,7 +481,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 853474781042388173, guid: c7873456c37b4b64f870bbac3fcff121, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: DisplayMenu
+      value: ResumeTime
       objectReference: {fileID: 0}
     - target: {fileID: 853474781042388173, guid: c7873456c37b4b64f870bbac3fcff121, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -639,16 +639,44 @@ PrefabInstance:
       value: -83.75
       objectReference: {fileID: 0}
     - target: {fileID: 8593314709916710587, guid: d2384c490a6f7114bae89d8d714c06f7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8593314709916710587, guid: d2384c490a6f7114bae89d8d714c06f7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8593314709916710587, guid: d2384c490a6f7114bae89d8d714c06f7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8141168586843096165}
+    - target: {fileID: 8593314709916710587, guid: d2384c490a6f7114bae89d8d714c06f7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 8141168586843096165}
+    - target: {fileID: 8593314709916710587, guid: d2384c490a6f7114bae89d8d714c06f7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8593314709916710587, guid: d2384c490a6f7114bae89d8d714c06f7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: QuitToMainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 8593314709916710587, guid: d2384c490a6f7114bae89d8d714c06f7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ResumeTime
+      objectReference: {fileID: 0}
+    - target: {fileID: 8593314709916710587, guid: d2384c490a6f7114bae89d8d714c06f7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: MenuManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8593314709916710587, guid: d2384c490a6f7114bae89d8d714c06f7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: MenuManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8593314709916710587, guid: d2384c490a6f7114bae89d8d714c06f7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8593314710553818784, guid: d2384c490a6f7114bae89d8d714c06f7, type: 3}
       propertyPath: m_AnchorMax.y
