@@ -1,27 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
+using System;
+using System.IO;
+
+public class LevelData
+{
+    public float time { get; }
+    public float speed { get; }
+    public float[] targets { get; }
+}
 
 public class LevelJSONLoader : MonoBehaviour
 {
-    private float m_timeLimit;
-    private float m_speedTarget;
-    private float[] m_scoreTargets;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public LevelData data;
 
-    // Update is called once per frame
-    void Update()
+    // Start is called before the first frame update
+    void Awake()
     {
-        
+        LoadLevelData();
     }
 
     private void LoadLevelData()
     {
-
+        // https://www.newtonsoft.com/json/help/html/SerializingJSON.htm
+        data = JsonConvert.DeserializeObject<LevelData>(File.ReadAllText("Assets/Level Data/level0.json"));
+        Debug.Log($"Time Limit: {data?.time}");
+        Debug.Log($"Speed Target: {data?.speed}");
+        Debug.Log($"Score Targets: {data?.targets[0]}, {data?.targets[1]}, {data?.targets[2]}");
     }
 }
