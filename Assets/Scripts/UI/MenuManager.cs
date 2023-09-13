@@ -1,6 +1,10 @@
 //Menu Manager script
 //by Jackson
+<<<<<<< HEAD
 //Last Edited 7/9/2023 10:27 am
+=======
+//Last Edited 7/9/2023 10:50 am
+>>>>>>> mobile
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
