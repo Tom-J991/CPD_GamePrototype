@@ -1,7 +1,7 @@
 // Score Script
 // by: Halen Finlay
 // date: 06/09/2023
-// last modified: 07/09/2023
+// last modified: 13/09/2023
 
 using System.Collections;
 using System.Collections.Generic;
@@ -73,7 +73,8 @@ public class Score : MonoBehaviour
         {
             foreach (GameObject hit in m_hitObstacles)
             {
-                float penalty = hit.GetComponent<Obstacle>().penalty;
+                float penalty = 0;
+                penalty = hit.GetComponent<Obstacle>().penalty;
                 penalties.Add(penalty);
                 totalPenalties += penalty;
             }
@@ -102,7 +103,7 @@ public class Score : MonoBehaviour
     {
         // If the object the Player collided with has the Obstacle component and is not
         // already in the list of collided objects, then add it to the list
-        if (other.gameObject.GetComponent<Obstacle>())
+        if (other.gameObject.tag == "Obstacle")
         {
             if (m_hitObstacles.IndexOf(other.gameObject) < 0)
             {
@@ -114,7 +115,7 @@ public class Score : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         // Checks if the player has reached the goal
-        if (other.gameObject.GetComponent<Goal>())
+        if (other.gameObject.tag == "Goal")
         {
             timerUI.gameObject.SetActive(false);
             CalculateScore();

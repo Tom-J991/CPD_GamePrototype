@@ -1,3 +1,8 @@
+// Level JSON Loader
+// by: Halen Finlay
+// date: 08/09/2023
+// last modified: 13/09/2023
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
