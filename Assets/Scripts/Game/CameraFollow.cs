@@ -1,11 +1,12 @@
 // Camera Follow Script
 // by: Thomas Jackson
 // date: 6/09/2023 9:52AM
-// last modified: 6/09/2023 1:45PM
+// last modified: 7/09/2023 10:54AM
 
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[ExecuteInEditMode]
 [RequireComponent(typeof(Camera))]
 public class CameraFollow : MonoBehaviour
 {
@@ -14,13 +15,13 @@ public class CameraFollow : MonoBehaviour
     [Tooltip("The target's transform which the camera will follow.")]
     public Transform targetObject;
 
-    [Header("Follow Properties")]
-    [Tooltip("The speed at which the camera moves towards the targets position.")]
-    public float followSpeed = 1.0f;
-
     [SerializeField]
     [Tooltip("The default distance to offset the camera from the target's transform.")]
     float distance = 1.0f;
+
+    [SerializeField]
+    [Tooltip("The default height to offset the camera from the target's transform.")]
+    float height = 0.0f;
 
     [Header("Zoom Properties")]
     [SerializeField]
@@ -44,10 +45,31 @@ public class CameraFollow : MonoBehaviour
         m_targetZoom = Mathf.Clamp(m_targetZoom, minZoom, maxZoom);
     }
 
+    void Awake()
+    {
+        // Update camera's position on script awake.
+        FollowTarget();
+    }
+
     void FixedUpdate()
     {
-        // Follow logic.
-        followPosition = targetObject.position - (transform.forward * (distance - m_targetZoom));
-        transform.position = Vector3.Lerp(transform.position, followPosition, followSpeed * Time.fixedDeltaTime);
+        // Update camera's position in game.
+        FollowTarget();
+    }
+
+    void OnValidate()
+    {
+        // Update camera's position on value change.
+        // This allows the camera to be updated automatically in edit mode.
+        FollowTarget();
+    }
+
+    // Follow logic.
+    void FollowTarget()
+    {
+        // Find new camera position by taking the target's position and adding a distance offset based on the camera's forward vector
+        // and then adding a height offset based on the camera's up vector.
+        followPosition = targetObject.position - (transform.forward * (distance - m_targetZoom)) + (transform.up * height);
+        transform.position = followPosition;
     }
 }

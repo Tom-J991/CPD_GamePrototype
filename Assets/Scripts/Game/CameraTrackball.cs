@@ -1,12 +1,12 @@
 // Camera Trackball Script
 // by: Thomas Jackson
 // date: 6/09/2023 10:24AM
-// last modified: 6/09/2023 3:02PM
+// last modified: 7/09/2023 10:54AM
 
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[ExecuteInEditMode]
 [RequireComponent(typeof(Camera)), RequireComponent(typeof(CameraFollow))]
 public class CameraTrackball : MonoBehaviour
 {
@@ -30,6 +30,12 @@ public class CameraTrackball : MonoBehaviour
     // Variables
     Vector2 m_orbitAngles = new Vector2(0.0f, 0.0f);
 
+    void Awake()
+    {
+        // Update camera on script awake.
+        Orbit();
+    }
+
     void Update()
     {
         // Get Mouse Inputs.
@@ -39,28 +45,36 @@ public class CameraTrackball : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector2 mouseInput = new Vector2(m_mousePosition.y, m_mousePosition.x);
+        // Update camera in game.
+        Orbit();
+    }
+
+    void Orbit()
+    {
+        Vector2 mouseInput = new Vector2(-m_mousePosition.y, m_mousePosition.x);
 
         // Trackball Logic.
         Quaternion lookRotation;
 
+        // Rotate euler axis based on mouse movement.
         m_orbitAngles += mouseInput * rotateSpeed * Time.fixedDeltaTime;
 
-        m_orbitAngles.x = Mathf.Clamp(m_orbitAngles.x, minVerticalAngle, maxVerticalAngle);
+        // Limit angles.
+        m_orbitAngles.x = Mathf.Clamp(m_orbitAngles.x, minVerticalAngle, maxVerticalAngle); // Limits vertical angle between range.
 
-        if (m_orbitAngles.y < 0.0f)
+        if (m_orbitAngles.y < 0.0f) // Wraps horizontal angle between 0 and 360 degrees.
             m_orbitAngles.y += 360.0f;
         if (m_orbitAngles.y >= 360.0f)
             m_orbitAngles.y -= 360.0f;
 
-        lookRotation = Quaternion.Euler(m_orbitAngles);
+        lookRotation = Quaternion.Euler(m_orbitAngles); // Convert euler axis to quaternion rotation.
 
-        transform.localRotation = lookRotation;
+        transform.localRotation = lookRotation; // Updates camera rotation.
     }
 
     void OnValidate()
     {
-        // Avoid maximum angle being below minimum.
+        // Avoid maximum angle being below minimum when changing values in editor.
         if (maxVerticalAngle < minVerticalAngle)
             maxVerticalAngle = minVerticalAngle;
     }
