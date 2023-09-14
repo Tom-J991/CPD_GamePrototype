@@ -11150,7 +11150,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-3036
+  m_Name: pb_Mesh28510
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14534,14 +14534,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cb9c8cada588aa4198b0be6d921f4d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playingLevel: 0
+  playingLevel: 1
   timerUI: {fileID: 1703771614745832531}
   scoreUI: {fileID: 4326835301073429853}
   targetScores:
-  - 300
-  - 200
-  - 100
-  targetTime: 40
+  - 1000
+  - 800
+  - 600
+  targetTime: 42
+  targetSpeed: 20
   finalScore: 0
   timeBonus: 0
   speedBonus: 0
@@ -19787,7 +19788,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-3064
+  m_Name: pb_Mesh28468
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

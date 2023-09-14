@@ -10,7 +10,7 @@ using UnityEngine;
 public class Score : MonoBehaviour
 {
     [Tooltip("Tracks if the Player is currently running the level")]
-    public bool playingLevel;
+    public bool playingLevel = true;
 
     [Header("Canvases")]
     [Tooltip("Reference to the TimerUI canvas in the scene.")]
@@ -21,6 +21,7 @@ public class Score : MonoBehaviour
     [Header("Level Details")]
     public float[] targetScores = { 300f, 200f, 100f };
     public float targetTime = 40f;
+    public float targetSpeed = 20f;
 
     [Header("Score Variables")]
     public float finalScore;
@@ -95,7 +96,7 @@ public class Score : MonoBehaviour
         if (timeBonus > 1000) timeBonus = 1000f;
 
         // Calculate speed bonus
-        speedBonus = Mathf.Floor(m_maxSpeed * 10);
+        speedBonus = Mathf.Floor(m_maxSpeed / targetSpeed * 600);
 
         // Calculate final score based on all bonuses and penalties
         finalScore = timeBonus + speedBonus - totalPenalties;
@@ -123,6 +124,7 @@ public class Score : MonoBehaviour
             CalculateScore();
             scoreUI.gameObject.SetActive(true);
             ParticleSystem pfx = Instantiate(m_victoryParticles, transform.position, Quaternion.identity);
+            playingLevel = false;
             gameObject.SetActive(false);
         }
     }
