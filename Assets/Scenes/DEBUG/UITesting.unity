@@ -693,6 +693,14 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3281132866261633053, guid: 5915f9f678cab5f40911d6750c1b249c, type: 3}
+      propertyPath: m_levelNames.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281132866261633053, guid: 5915f9f678cab5f40911d6750c1b249c, type: 3}
+      propertyPath: m_levelNames.Array.data[1]
+      value: MobileTestingEnvironment
+      objectReference: {fileID: 0}
     - target: {fileID: 5823345257600581985, guid: 5915f9f678cab5f40911d6750c1b249c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
