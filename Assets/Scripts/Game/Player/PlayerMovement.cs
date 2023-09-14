@@ -41,4 +41,12 @@ public class PlayerMovement : MonoBehaviour
     {
         m_movementVector = _value.Get<Vector2>();
     }
+    public void AltOnMove(Vector2 _value)
+    {
+        m_movementVector = _value;
+    }
+    public void AltOnMove(float _value)
+    {
+        m_movementVector = new Vector2(_value, m_movementVector.y);
+    }
 }

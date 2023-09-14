@@ -96,7 +96,7 @@ public class MenuManager : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-        Application.Quit(code);
+        Application.Quit();
 #endif
     }
     public void SetTimeScale(float scale)

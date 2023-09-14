@@ -1,9 +1,10 @@
 //Mobile Input Manager
 //by Jackson
-//Last edited 8/9/2023 10:27 am
+//Last edited 14/9/2023 11:13 am
 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class MobileInputManager : MonoBehaviour
 {
@@ -15,11 +16,28 @@ public class MobileInputManager : MonoBehaviour
     bool m_userDrifting;
     bool m_readInputs = true;
 
+    PlayerMovement m_movement;
+
     [SerializeField]
     Image m_leftIcon;
     [SerializeField]
     Image m_rightIcon;
 
+    [SerializeField] UnityEvent m_leftActionStart = new UnityEvent();
+    [SerializeField] UnityEvent m_rightActionStart = new UnityEvent();
+    //[SerializeField] UnityEvent m_leftDriftActionStart = new UnityEvent();
+    //[SerializeField] UnityEvent m_rightDriftActionStart = new UnityEvent();
+    [SerializeField] UnityEvent m_leftActionEnd = new UnityEvent();
+    [SerializeField] UnityEvent m_rightActionEnd = new UnityEvent();
+    //[SerializeField] UnityEvent m_leftDriftActionEnd = new UnityEvent();
+    //[SerializeField] UnityEvent m_rightDriftActionEnd = new UnityEvent();
+    [SerializeField] UnityEvent m_driftActionStart = new UnityEvent();
+    [SerializeField] UnityEvent m_driftActionEnd = new UnityEvent();
+
+    private void Start()
+    {
+        m_movement = FindObjectOfType<PlayerMovement>();
+    }
     void Update()
     {
         if (m_readInputs)
@@ -62,45 +80,58 @@ public class MobileInputManager : MonoBehaviour
     private void LeftSideAction()
     {
         Debug.Log("Left side pressed");
+        /*
         if (m_userDrifting)
         {
             m_leftIcon.color = Color.blue;
+            //Active drift function
+            m_leftDriftActionStart.Invoke();
         }
         else
         {
-            m_leftIcon.color = Color.green;
         }
+         */
+            m_leftIcon.color = Color.green;
+            m_leftActionStart.Invoke();
 
         if (Input.GetTouch(0).phase == TouchPhase.Ended)
         {
             m_leftIcon.color = Color.white;
+            m_leftActionEnd.Invoke();
         }
     }
     private void RightSideAction()
     {
         Debug.Log("Right side pressed");
+        /*
         if(m_userDrifting)
         {
             m_rightIcon.color = Color.blue;
+            m_rightDriftActionStart.Invoke();
         }
         else
         {
-            m_rightIcon.color = Color.green;
         }
+         */
+            m_rightIcon.color = Color.green;
+            m_rightActionStart.Invoke();
 
-        if(Input.GetTouch(0).phase == TouchPhase.Ended)
+        if (Input.GetTouch(0).phase == TouchPhase.Ended)
         {
             m_rightIcon.color = Color.white;
+            m_rightActionEnd.Invoke();
         }
     }
     private void StartDrifting()
     {
         Debug.Log("Player is now drifting");
         m_userDrifting = true;
+        m_driftActionStart.Invoke();
     }
     private void EndDrifting()
     {
         m_userDrifting = false;
+        m_driftActionEnd.Invoke();
     }
     public void ToggleInputReading()
     {

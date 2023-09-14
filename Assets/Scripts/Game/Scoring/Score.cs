@@ -1,7 +1,7 @@
 // Score Script
 // by: Halen Finlay
 // date: 06/09/2023
-// last modified: 13/09/2023
+// last modified: 14/09/2023 4L45 pm by Jackson
 
 using System.Collections;
 using System.Collections.Generic;
@@ -44,6 +44,8 @@ public class Score : MonoBehaviour
     // Private variables
     private Rigidbody m_player;
 
+    //~j
+    public ParticleSystem m_victoryParticles;
     // Start is called before the first frame update
     void Start()
     {
@@ -120,6 +122,8 @@ public class Score : MonoBehaviour
             timerUI.gameObject.SetActive(false);
             CalculateScore();
             scoreUI.gameObject.SetActive(true);
+            ParticleSystem pfx = Instantiate(m_victoryParticles, transform.position, Quaternion.identity);
+            gameObject.SetActive(false);
         }
     }
 }
