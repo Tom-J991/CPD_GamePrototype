@@ -101,7 +101,7 @@ public class ClubSwing : MonoBehaviour
                 // set the position and rotation of the launch arrow
                 launchArrow.transform.position = new Vector3(m_player.position.x,
                                                              2.5f * Mathf.Cos(m_launchAngle * Mathf.PI / 180) + m_player.position.y,
-                                                             2.5f * Mathf.Sin(m_launchAngle * Mathf.PI / 180));
+                                                             2.5f * Mathf.Sin(m_launchAngle * Mathf.PI / 180) + m_player.position.z);
                 launchArrow.transform.rotation = Quaternion.Euler(new Vector3(m_launchAngle, 0, 0));
 
                 // When player wants to swing
