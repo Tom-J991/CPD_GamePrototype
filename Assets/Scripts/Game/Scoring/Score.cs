@@ -5,7 +5,9 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ProBuilder;
 using UnityEngine;
+using UnityEngine.ProBuilder;
 
 public class Score : MonoBehaviour
 {
@@ -77,7 +79,7 @@ public class Score : MonoBehaviour
             foreach (GameObject hit in m_hitObstacles)
             {
                 float penalty = 0;
-                penalty = hit.GetComponent<Obstacle>().penalty;
+                penalty = Mathf.Floor(Vector3.Magnitude(hit.GetComponent<MeshRenderer>().bounds.size) * 8f);
                 penalties.Add(penalty);
                 totalPenalties += penalty;
             }
