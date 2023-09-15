@@ -27,7 +27,10 @@ public class MenuManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(m_pauseMenuKey))
+        {
             HardDisplayMenu(0);
+            PauseTime();
+        }
     }
     /// <summary>
     /// Displays the desiered menu and updates the current menu index

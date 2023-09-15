@@ -47,6 +47,8 @@ public class ClubSwing : MonoBehaviour
     // time at the start
     private float m_startTime;
 
+    public bool m_waitingForPlayer = true;
+
     public enum SwingState
     {
         Ready = 0,
@@ -111,6 +113,10 @@ public class ClubSwing : MonoBehaviour
                 // When player wants to swing
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
+                    m_waitingForPlayer = false;
+                }
+                if(!m_waitingForPlayer)
+                {
                     launchArrow.gameObject.SetActive(false);
                     state = SwingState.Swinging;
                 }
@@ -136,5 +142,9 @@ public class ClubSwing : MonoBehaviour
 
                 break;
         }
+    }
+    public void TriggerStartSwing()
+    {
+        m_waitingForPlayer = false;
     }
 }

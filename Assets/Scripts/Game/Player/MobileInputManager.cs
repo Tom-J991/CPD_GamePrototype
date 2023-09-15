@@ -23,6 +23,9 @@ public class MobileInputManager : MonoBehaviour
     [SerializeField]
     Image m_rightIcon;
 
+    [SerializeField]
+    ClubSwing m_clubSwing;
+
     [SerializeField] UnityEvent m_leftActionStart = new UnityEvent();
     [SerializeField] UnityEvent m_rightActionStart = new UnityEvent();
     //[SerializeField] UnityEvent m_leftDriftActionStart = new UnityEvent();
@@ -46,33 +49,42 @@ public class MobileInputManager : MonoBehaviour
             //I think that this will only check the first input so if wanna change it, it may need some work -J
             if (Input.touchCount > 0)
             {
-                //Save positions
-                m_fingerPosition = Input.GetTouch(0).position;
-                if (Input.GetTouch(0).phase == TouchPhase.Began)
+                if (m_clubSwing.m_waitingForPlayer)
                 {
-                    m_initialFingerY = m_fingerPosition.y;
-                }
-
-                //Compare positions
-                //If we're over half of the screen's width, we're on the right side
-                if (m_fingerPosition.x > Screen.width / 2)
-                {
-                    RightSideAction();
+                    m_clubSwing.TriggerStartSwing();
+                    m_leftIcon.enabled = true;
+                    m_rightIcon.enabled = true;
                 }
                 else
                 {
-                    LeftSideAction();
-                }
+                    //Save positions
+                    m_fingerPosition = Input.GetTouch(0).position;
+                    if (Input.GetTouch(0).phase == TouchPhase.Began)
+                    {
+                        m_initialFingerY = m_fingerPosition.y;
+                    }
 
-                //Check the difference between the initial finger placement and current placement
-                //Not using |ABS| here as we only want to check if the player is pulling down
-                if (m_initialFingerY - m_fingerPosition.y > m_driftThreashhold)
-                {
-                    StartDrifting();
-                }
-                else if (m_userDrifting)
-                {
-                    EndDrifting();
+                    //Compare positions
+                    //If we're over half of the screen's width, we're on the right side
+                    if (m_fingerPosition.x > Screen.width / 2)
+                    {
+                        RightSideAction();
+                    }
+                    else
+                    {
+                        LeftSideAction();
+                    }
+
+                    //Check the difference between the initial finger placement and current placement
+                    //Not using |ABS| here as we only want to check if the player is pulling down
+                    if (!m_userDrifting && m_initialFingerY - m_fingerPosition.y > m_driftThreashhold)
+                    {
+                        StartDrifting();
+                    }
+                    if (m_userDrifting && Input.GetTouch(0).phase == TouchPhase.Ended)
+                    {
+                        EndDrifting();
+                    }
                 }
             }
         }

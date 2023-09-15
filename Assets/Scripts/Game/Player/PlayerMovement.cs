@@ -107,11 +107,15 @@ public class PlayerMovement : MonoBehaviour
 	
     public void AltOnMove(float _value)
     {
-        m_movementVector = new Vector2(_value, m_movementVector.y);
+        m_movementVector = new Vector2(_value, 1);
 	}
 	
     void OnDrift(InputValue _value)
     {
         m_onDrift = _value.isPressed;
+    }
+    public void AltOnDrift(bool _value)
+    {
+        m_onDrift = _value;
     }
 }
