@@ -128,13 +128,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c2a4ae766ebdbf4abdaff0e0d9f6aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 12
+  movementSpeed: 48
   groundCheck: {fileID: 8831579087754389673}
   groundMask:
     serializedVersion: 2
-    m_Bits: 1
-  maxBoost: 800
-  boostIncrement: 100
+    m_Bits: 256
+  maxBoost: 4000
+  boostIncrement: 1200
 --- !u!114 &3024796239597062120
 MonoBehaviour:
   m_ObjectHideFlags: 0

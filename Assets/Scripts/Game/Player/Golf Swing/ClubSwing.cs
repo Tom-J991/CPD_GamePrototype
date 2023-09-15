@@ -10,6 +10,9 @@ using UnityEngine.UI;
 
 public class ClubSwing : MonoBehaviour
 {
+    [Tooltip("The canvas that displays the launch meter before swinging.")]
+    public GameObject meterCanvas;
+    
     [Tooltip("The arrow that shows the direction the player is going to launch in.")]
     public GameObject launchArrow;
     
@@ -58,7 +61,7 @@ public class ClubSwing : MonoBehaviour
         m_player.isKinematic = true;
 
         // set the default launch angle
-        m_launchAngle = defaultLaunchAngle;
+        m_launchAngle = 90f - defaultLaunchAngle;
 
         // set to starting state for the swing
         state = SwingState.Ready;
@@ -117,7 +120,7 @@ public class ClubSwing : MonoBehaviour
                 m_player.isKinematic = false;
 
                 // rotate the player to face the direction they want to launch
-                m_player.rotation = Quaternion.Euler(new Vector3(-m_launchAngle, 0, 0));
+                m_player.rotation = Quaternion.Euler(new Vector3(m_launchAngle - 90, 0, 0));
 
                 // add launch force
                 m_player.AddRelativeForce(m_player.transform.forward * m_swingForce, ForceMode.Impulse);
@@ -127,6 +130,9 @@ public class ClubSwing : MonoBehaviour
                 break;
 
             case SwingState.Complete:
+                launchArrow.gameObject.SetActive(false);
+                meterCanvas.gameObject.SetActive(false);
+
                 break;
         }
     }
