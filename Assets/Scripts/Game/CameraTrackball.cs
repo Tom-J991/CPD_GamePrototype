@@ -30,6 +30,8 @@ public class CameraTrackball : MonoBehaviour
     // Variables
     Vector2 m_orbitAngles = new Vector2(0.0f, 0.0f);
 
+    public float InitialAngle = 0;
+
     void Awake()
     {
         // Update camera on script awake.

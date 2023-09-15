@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         Camera cam = Camera.main; // Camera must be tagged as MainCamera
 
         // Physics logic.
-        m_isGrounded = Physics.CheckSphere(groundCheck.position, 0.01f, groundMask); // Check if the ball is on the ground.
+        m_isGrounded = Physics.CheckSphere(groundCheck.position, 0.04f, groundMask); // Check if the ball is on the ground.
 
         // Tee off logic.
 

@@ -57,4 +57,16 @@ public class WindZone : MonoBehaviour
             player.AddForce(transform.parent.forward * windSpeed * distanceFactor, ForceMode.Acceleration);
         }
     }
+
+    private void OnValidate()
+    {
+        if (m_zone)
+        {
+            // set the size of the zone
+            m_zone.size = new Vector3(zoneSize, zoneSize, zoneLength);
+            // correctly set the position of the zone
+            if (backZone) m_zone.transform.localPosition = new Vector3(0, 0, -m_zone.size.z / 2);
+            else m_zone.transform.localPosition = new Vector3(0, 0, m_zone.size.z / 2);
+        }
+    }
 }

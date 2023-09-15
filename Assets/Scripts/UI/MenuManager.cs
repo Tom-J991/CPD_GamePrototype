@@ -1,6 +1,6 @@
 //Menu Manager script
 //by Jackson
-//Last Edited 7/9/2023 10:50 am
+//Last Edited 15/9/2023 9:12 am
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -81,12 +81,23 @@ public class MenuManager : MonoBehaviour
         m_menus[m_currentIndex].SetActive(false);
     }
     /// <summary>
+    /// You won't believe what these functions do!!
+    /// </summary>
+    public void LoadScene(string name)
+    {
+        SceneManager.LoadScene(name);
+    }
+    public void LoadScene(int index)
+    {
+        SceneManager.LoadScene(index);
+    }
+    /// <summary>
     /// Loads the main menu scene
     /// </summary>
     public void QuitToMainMenu()
     {
         //TODO: replace this with the real main menu
-        SceneManager.LoadScene("UITesting");
+        SceneManager.LoadScene("MainMenuScene");
     }
     /// <summary>
     /// Either quits the application in build mode or exits the editor

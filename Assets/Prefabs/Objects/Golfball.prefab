@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 2368893134137386150}
   - component: {fileID: 2368893134137386149}
   - component: {fileID: 2368893134137386148}
+  - component: {fileID: 3024796239597062120}
   m_Layer: 0
   m_Name: Golfball
   m_TagString: Player
@@ -134,6 +135,35 @@ MonoBehaviour:
     m_Bits: 1
   maxBoost: 800
   boostIncrement: 100
+--- !u!114 &3024796239597062120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2368893134137386151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cb9c8cada588aa4198b0be6d921f4d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playingLevel: 1
+  timerUI: {fileID: 0}
+  scoreUI: {fileID: 0}
+  targetScores:
+  - 300
+  - 200
+  - 100
+  targetTime: 40
+  targetSpeed: 200
+  finalScore: 0
+  timeBonus: 0
+  speedBonus: 0
+  penalties: []
+  m_timer: 0
+  m_maxSpeed: 0
+  m_hitObstacles: []
+  m_victoryParticles: {fileID: 2068605906633578377, guid: 1687fda833292934b867e4369c23c63e, type: 3}
 --- !u!1 &2368893135097246358
 GameObject:
   m_ObjectHideFlags: 0
