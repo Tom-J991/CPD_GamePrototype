@@ -2197,10 +2197,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f478ede4e9d259d4c8207abd30b09c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meterCanvas: {fileID: 841672782}
   launchArrow: {fileID: 453033456}
   bar: {fileID: 1575283898}
   maxSwingForce: 20
-  defaultLaunchAngle: 0
+  defaultLaunchAngle: 20
   m_swingForce: 0
   m_launchAngle: 0
 --- !u!4 &145968226
@@ -12970,6 +12971,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &841672782 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6928399385257378958, guid: 7d9006a4ab5f7dd428661a3875406cf9, type: 3}
+  m_PrefabInstance: {fileID: 1900176089}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &875561643
 Mesh:
   m_ObjectHideFlags: 0
@@ -17525,12 +17531,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2368893134137386148, guid: 030e891c93e01e0469520743a8c2d9c2, type: 3}
-      propertyPath: movementSpeed
-      value: 24
+      propertyPath: maxBoost
+      value: 24000
       objectReference: {fileID: 0}
     - target: {fileID: 2368893134137386148, guid: 030e891c93e01e0469520743a8c2d9c2, type: 3}
-      propertyPath: groundMask.m_Bits
-      value: 256
+      propertyPath: boostIncrement
+      value: 6000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2368893134137386150, guid: 030e891c93e01e0469520743a8c2d9c2, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2368893134137386151, guid: 030e891c93e01e0469520743a8c2d9c2, type: 3}
       propertyPath: m_Name
