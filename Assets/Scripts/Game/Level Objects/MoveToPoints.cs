@@ -29,12 +29,13 @@ public class MoveToPoints : MonoBehaviour
     {
         m_index = 0;
         m_length = points.Length;
+        if (points.Length > 0) transform.position = points[0].position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (active)
+        if (active && points.Length > 1)
         {
             transform.position = Vector3.MoveTowards(transform.position, points[m_index].position, moveSpeed * Time.deltaTime);
 
