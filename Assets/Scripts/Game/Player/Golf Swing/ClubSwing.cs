@@ -107,6 +107,7 @@ public class ClubSwing : MonoBehaviour
                 // When player wants to swing
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
+                    launchArrow.gameObject.SetActive(false);
                     state = SwingState.Swinging;
                 }
                 break;

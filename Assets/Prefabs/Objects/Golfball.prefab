@@ -127,13 +127,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c2a4ae766ebdbf4abdaff0e0d9f6aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 24
+  movementSpeed: 12
   groundCheck: {fileID: 8831579087754389673}
   groundMask:
     serializedVersion: 2
     m_Bits: 1
-  maxBoost: 4096
-  boostIncrement: 4096
+  maxBoost: 800
+  boostIncrement: 100
 --- !u!1 &2368893135097246358
 GameObject:
   m_ObjectHideFlags: 0
