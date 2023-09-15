@@ -119,10 +119,12 @@ public class MenuManager : MonoBehaviour
     }
     public void PauseTime()
     {
+        Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0;
     }
     public void ResumeTime()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
     }
     /*
