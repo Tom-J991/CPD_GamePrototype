@@ -1,6 +1,6 @@
 //Menu Manager script
 //by Jackson
-//Last Edited 15/9/2023 9:12 am
+//Last Edited 15/9/2023 4:32 pm
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -53,6 +53,16 @@ public class MenuManager : MonoBehaviour
                 menu.SetActive(false);
         }
         DisplayMenu(i);
+    }
+    public void SwitchToMenu(int i)
+    {
+        HideCurrentMenu();
+        DisplayMenu(i);
+    }
+    public void HardSwitchToMenu(int i)
+    {
+        HideCurrentMenu();
+        HardDisplayMenu(i);
     }
     /// <summary>
     /// Hides the desiered menu
