@@ -32,31 +32,17 @@ public class CameraTrackball : MonoBehaviour
 
     public float InitialAngle = 0;
 
-    void Awake()
-    {
-        // Update camera on script awake.
-        Orbit();
-    }
+    // Trackball Logic.
+    private Quaternion lookRotation = Quaternion.identity;
 
     void Update()
     {
         // Get Mouse Inputs.
         m_mousePosition = Mouse.current.delta.ReadValue();
         m_mouseClicked = Mouse.current.leftButton.ReadValue() >= 0.001f;
-    }
 
-    void FixedUpdate()
-    {
-        // Update camera in game.
-        Orbit();
-    }
-
-    void Orbit()
-    {
+        // update camera positioning
         Vector2 mouseInput = new Vector2(-m_mousePosition.y, m_mousePosition.x);
-
-        // Trackball Logic.
-        Quaternion lookRotation;
 
         // Rotate euler axis based on mouse movement.
         m_orbitAngles += mouseInput * rotateSpeed * Time.fixedDeltaTime;
@@ -70,8 +56,14 @@ public class CameraTrackball : MonoBehaviour
             m_orbitAngles.y -= 360.0f;
 
         lookRotation = Quaternion.Euler(m_orbitAngles); // Convert euler axis to quaternion rotation.
+    }
 
-        transform.localRotation = lookRotation; // Updates camera rotation.
+    void FixedUpdate()
+    {
+        // Update camera in game.
+        //transform.localRotation = lookRotation; // Updates camera rotation.
+
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, lookRotation, 0.1f);
     }
 
     void OnValidate()

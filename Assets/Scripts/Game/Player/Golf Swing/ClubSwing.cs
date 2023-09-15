@@ -10,6 +10,9 @@ using UnityEngine.UI;
 
 public class ClubSwing : MonoBehaviour
 {
+    [Tooltip("Player's rigidbody.")]
+    public Rigidbody player;
+
     [Tooltip("The canvas that displays the launch meter before swinging.")]
     public GameObject meterCanvas;
     
@@ -36,8 +39,7 @@ public class ClubSwing : MonoBehaviour
     [Range(-0f, 90f)]
     [SerializeField] private float m_launchAngle;
 
-    // reference to the player
-    private Rigidbody m_player;
+    
 
     // the min/max range of the bar's y local coordinate
     private float m_barRange;
@@ -56,9 +58,8 @@ public class ClubSwing : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // get player rigidbody and disallow them from moving
-        m_player = GameObject.FindWithTag("Player").GetComponent<Rigidbody>();
-        m_player.isKinematic = true;
+        // disallow player from from moving
+        player.isKinematic = true;
 
         // set the default launch angle
         m_launchAngle = 90f - defaultLaunchAngle;
@@ -102,9 +103,9 @@ public class ClubSwing : MonoBehaviour
                 m_launchAngle = Mathf.Clamp(m_launchAngle, 0, 90f);
 
                 // set the position and rotation of the launch arrow
-                launchArrow.transform.position = new Vector3(m_player.position.x,
-                                                             2.5f * Mathf.Cos(m_launchAngle * Mathf.PI / 180) + m_player.position.y,
-                                                             2.5f * Mathf.Sin(m_launchAngle * Mathf.PI / 180) + m_player.position.z);
+                launchArrow.transform.position = new Vector3(player.position.x,
+                                                             2.5f * Mathf.Cos(m_launchAngle * Mathf.PI / 180) + player.position.y,
+                                                             2.5f * Mathf.Sin(m_launchAngle * Mathf.PI / 180) + player.position.z);
                 launchArrow.transform.rotation = Quaternion.Euler(new Vector3(m_launchAngle, 0, 0));
 
                 // When player wants to swing
@@ -117,13 +118,13 @@ public class ClubSwing : MonoBehaviour
 
             case SwingState.Swinging:
                 // enable the player's rigidbody
-                m_player.isKinematic = false;
+                player.isKinematic = false;
 
                 // rotate the player to face the direction they want to launch
-                m_player.rotation = Quaternion.Euler(new Vector3(m_launchAngle - 90, 0, 0));
+                player.rotation = Quaternion.Euler(new Vector3(m_launchAngle - 90, 0, 0));
 
                 // add launch force
-                m_player.AddRelativeForce(m_player.transform.forward * m_swingForce, ForceMode.Impulse);
+                player.AddRelativeForce(player.transform.forward * m_swingForce, ForceMode.Impulse);
 
                 // stop swinging
                 state = SwingState.Complete;
