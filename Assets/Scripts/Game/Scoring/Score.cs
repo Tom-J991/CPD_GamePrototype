@@ -10,9 +10,6 @@ using UnityEngine.ProBuilder;
 
 public class Score : MonoBehaviour
 {
-    [Tooltip("Tracks if the Player is currently running the level")]
-    public bool playingLevel = true;
-
     [Header("Canvases")]
     [Tooltip("Reference to the TimerUI canvas in the scene.")]
     public TimerUI timerUI;
@@ -32,6 +29,8 @@ public class Score : MonoBehaviour
     public int ranking = -1;
 
     [Header("Active Variables")]
+    [Tooltip("Whether the timer is active or not.")]
+    public bool timerActive = false;
     [Tooltip("Time passed since the Player started the level.")]
     [Min(0)]
     [SerializeField] private float m_timer;
@@ -49,6 +48,7 @@ public class Score : MonoBehaviour
 
     //~j
     public ParticleSystem m_victoryParticles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +61,7 @@ public class Score : MonoBehaviour
     void Update()
     {
         // Update timer if the player is playing the level
-        if (playingLevel) m_timer += Time.deltaTime;
+        if (timerActive) m_timer += Time.deltaTime;
 
         // Update the player's highest reached speed if they have reached a new high
         if (m_player.velocity.magnitude > m_maxSpeed) m_maxSpeed = m_player.velocity.magnitude;
@@ -153,7 +153,7 @@ public class Score : MonoBehaviour
             }
             //scoreUI.gameObject.SetActive(true);
             ParticleSystem pfx = Instantiate(m_victoryParticles, transform.position, Quaternion.identity);
-            playingLevel = false;
+            timerActive = false;
             gameObject.SetActive(false);
         }
     }
