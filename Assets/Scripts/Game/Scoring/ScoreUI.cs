@@ -1,12 +1,13 @@
 // Score Script
 // by: Halen Finlay
 // date: 06/09/2023
-// last modified: 07/09/2023
+// last modified: 20/09/2023 12:41 AM by Jackson
 
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreUI : MonoBehaviour
 {
@@ -21,11 +22,16 @@ public class ScoreUI : MonoBehaviour
     public TextMeshProUGUI speedScoreDisplay;
     [Tooltip("Displays the list of penalites the Player accrued from hitting Obstacles.")]
     public TextMeshProUGUI penaltyDisplay;
-
+    [Tooltip("The image that displays the users rank upon level completion.")]
+    public Image rankDisplay;
+    public Sprite[] rankImages;
+    public TextMeshProUGUI tauntTextBox;
+    [Tooltip("Short messages to show based on the player's rank.")]
+    public string[] rankTaunts;
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -41,15 +47,17 @@ public class ScoreUI : MonoBehaviour
 
     private void SetDisplayDetails()
     {
-        finalScoreDisplay.text = "Final Score: " + scoreComponent.finalScore.ToString();
-        timeScoreDisplay.text = "Time Bonus: " + scoreComponent.timeBonus.ToString();
-        speedScoreDisplay.text = "Max Speed bonus: " + scoreComponent.speedBonus.ToString();
-        string penaltyText = "Penalties:\n";
-        if (scoreComponent.penalties.Count == 0) penaltyText = "No penalties! +100";
+        finalScoreDisplay.text = scoreComponent.finalScore.ToString();
+        timeScoreDisplay.text = scoreComponent.timeBonus.ToString();
+        speedScoreDisplay.text = scoreComponent.speedBonus.ToString();
+        float penaltyScore = 0;
         foreach (float penalty in scoreComponent.penalties)
         {
-            penaltyText += "-" + penalty + "\n";
+            penaltyScore -= penalty;
         }
-        penaltyDisplay.text = penaltyText;
+        penaltyDisplay.text = (penaltyScore >= 0 ? "+100" : penaltyScore.ToString());
+
+        rankDisplay.sprite = rankImages[scoreComponent.ranking];
+        tauntTextBox.text = rankTaunts[scoreComponent.ranking];
     }
 }

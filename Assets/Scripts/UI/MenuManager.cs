@@ -1,6 +1,6 @@
 //Menu Manager script
 //by Jackson
-//Last Edited 15/9/2023 4:32 pm
+//Last Edited 20/9/2023 11:56 AM
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,7 +10,16 @@ public class MenuManager : MonoBehaviour
     [Tooltip("The menus to display game object.")]
     public GameObject[] m_menus;
     int m_currentIndex = 0;
+    [Tooltip("Enables or disables the pause function.")]
+    public bool m_doPause = true;
+    [Tooltip("The keyboard input to pause the game - ignore for mobile.")]
     public KeyCode m_pauseMenuKey;
+
+    GameManager gm;
+    void Start()
+    {
+        gm = FindObjectOfType<GameManager>();    
+    }
     /// <summary>
     /// Allows for a quick switch between 2 menus
     /// </summary>
@@ -26,11 +35,18 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (Input.GetKeyDown(m_pauseMenuKey))
+        if (Input.GetKeyDown(m_pauseMenuKey) && m_doPause)
         {
-            HardDisplayMenu(0);
-            PauseTime();
+            PauseGame();
         }
+    }
+    public int GetIndexOfMenu(GameObject menu)
+    {
+        for(int i = 0; i < m_menus.Length; i++)
+        {
+            if (m_menus[i] == menu) return i;
+        }
+        return -1;
     }
     /// <summary>
     /// Displays the desiered menu and updates the current menu index
@@ -92,6 +108,14 @@ public class MenuManager : MonoBehaviour
     public void HideCurrentMenu()
     {
         m_menus[m_currentIndex].SetActive(false);
+    }
+
+    public void PauseGame()
+    {
+        PauseTime();
+        //Assumes that the pause menu is the first menu
+        HardDisplayMenu(0);
+        gm.UnlockMouse();
     }
     /// <summary>
     /// You won't believe what these functions do!!

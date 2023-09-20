@@ -18,6 +18,7 @@ public class DeathBox : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Destroy(other.gameObject);
+            FindObjectOfType<GameManager>().UnlockMouse();
             deathCanvas.gameObject.SetActive(true);
         }
     }

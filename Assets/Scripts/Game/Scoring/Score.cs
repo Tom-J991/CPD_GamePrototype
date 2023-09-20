@@ -1,7 +1,7 @@
 // Score Script
 // by: Halen Finlay
 // date: 06/09/2023
-// last modified: 14/09/2023 4L45 pm by Jackson
+// last modified: 20/09/2023 12:34 AM by Jackson
 
 using System.Collections;
 using System.Collections.Generic;
@@ -30,6 +30,7 @@ public class Score : MonoBehaviour
     public float timeBonus;
     public float speedBonus;
     public List<float> penalties;
+    public int ranking = -1;
 
     [Header("Active Variables")]
     [Tooltip("Time passed since the Player started the level.")]
@@ -102,6 +103,23 @@ public class Score : MonoBehaviour
 
         // Calculate final score based on all bonuses and penalties
         finalScore = timeBonus + speedBonus - totalPenalties;
+
+        // Ranking system - probably could be improved
+        for(int i = 0; i < targetScores.Length; i++)
+        {
+            if (finalScore >= targetScores[i])
+            {
+                ranking = i;
+                break;
+            }
+        }
+        if (ranking < 0)
+        {
+            if (finalScore > 0)
+                ranking = 3;
+            else
+                ranking = 4;
+        }
     }
 
     public void OnCollisionEnter(Collision other)
@@ -122,9 +140,19 @@ public class Score : MonoBehaviour
         // Checks if the player has reached the goal
         if (other.gameObject.tag == "Goal")
         {
-            timerUI.gameObject.SetActive(false);
+            //timerUI.gameObject.SetActive(false);
             CalculateScore();
-            scoreUI.gameObject.SetActive(true);
+            MenuManager mm = FindObjectOfType<MenuManager>();
+            int i = mm.GetIndexOfMenu(scoreUI.gameObject);
+            if (i < 0)
+                Debug.Log("The score ui has not been added to the menu manager or doesn't exist.\nPlease make sure that it is set up correctly.");
+            else
+            {
+                FindObjectOfType<GameManager>().UnlockMouse();
+                mm.SwitchToMenu(i);
+                mm.m_doPause = false;
+            }
+            //scoreUI.gameObject.SetActive(true);
             ParticleSystem pfx = Instantiate(m_victoryParticles, transform.position, Quaternion.identity);
             playingLevel = false;
             gameObject.SetActive(false);

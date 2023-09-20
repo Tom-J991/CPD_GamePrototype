@@ -160,6 +160,7 @@ MonoBehaviour:
   timeBonus: 0
   speedBonus: 0
   penalties: []
+  ranking: -1
   m_timer: 0
   m_maxSpeed: 0
   m_hitObstacles: []
