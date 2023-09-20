@@ -39,9 +39,7 @@ public class ClubSwing : MonoBehaviour
     [Range(-0f, 90f)]
     [SerializeField] private float m_launchAngle;
 
-    
-
-    // the min/max range of the bar's y local coordinate
+    // the min/max range of the bar's local y coordinate
     private float m_barRange;
 
     // time at the start
@@ -117,6 +115,7 @@ public class ClubSwing : MonoBehaviour
                 }
                 if(!m_waitingForPlayer)
                 {
+                    player.gameObject.GetComponent<Score>().timerActive = true;
                     launchArrow.gameObject.SetActive(false);
                     state = SwingState.Swinging;
                 }
