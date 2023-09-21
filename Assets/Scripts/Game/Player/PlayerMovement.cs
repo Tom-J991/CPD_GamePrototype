@@ -1,7 +1,7 @@
 // Player Movement Script
 // by: Thomas Jackson
 // date: 6/09/2023 9:30AM
-// last modified: 21/09/2023 9:39 AM by Thomas
+// last modified: 21/09/2023 3:12 PM by Jackson
 
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -77,10 +77,13 @@ public class PlayerMovement : MonoBehaviour
         // Drifting logic.
         if (m_onDrift && m_isGrounded)
         {
+            /*
             // Builds up boost meter when button is held and ball is grounded.
-            boostInc += boostIncrement * Time.fixedDeltaTime;
-            boostInc *= m_rb.velocity.magnitude;
+            boostInc += boostIncrement * m_rb.velocity.magnitude/10f * Time.fixedDeltaTime;
             m_boostMeter += boostInc * Time.fixedDeltaTime;
+            m_boostMeter = Mathf.Clamp(m_boostMeter, 0.0f, maxBoost);
+            */
+            m_boostMeter += boostIncrement * m_rb.velocity.magnitude * Time.fixedDeltaTime;
             m_boostMeter = Mathf.Clamp(m_boostMeter, 0.0f, maxBoost);
 
             meterCanvas.SetActive(true); // Enable Boost Meter.
@@ -99,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
             m_rb.AddForce(boostVector * Time.fixedDeltaTime, ForceMode.Impulse);
 
             m_boostMeter = 0.0f; // Reset boost meter.
+            boostInc = 0.0f; // Reset boost value.
             meterCanvas.SetActive(false); // Disable Boost Meter.
         }
 
