@@ -1,33 +1,33 @@
 //Highscore script
-//by Halen? Jackson
-//Last Edited 20/9/23 4:30 PM
+//by Halen & Jackson
+//Last Edited 21/9/23 4:30 PM
 
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+
+[System.Serializable]
+public class HighScore
+{
+    public string name;
+    public int score;
+    public float time;
+    public char rank;
+}
 
 public class Highscores : MonoBehaviour
 {
-    [System.Serializable]
-    public class Score
-    {
-        public string name;
-        public int score;
-        public float time;
-        public char rank;
-    }
-    public List<Score> highscores;
+    public List<HighScore> highscores;
 
     public GameObject scoreBoard;
     public GameObject scoreEntryTemplate;
     //public List<Transform> entryFields;
 
-    private void Awake()
+    private void Start()
     {
         scoreEntryTemplate.SetActive(false);
-        foreach(Score score in highscores)
+        foreach(HighScore score in highscores)
         {
             //Make a new entry and attach it to the board
             GameObject newEntry = Instantiate(scoreEntryTemplate);

@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 1863136457}
   - component: {fileID: 1863136456}
   m_Layer: 0
-  m_Name: Level Data
+  m_Name: LevelData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -330,6 +330,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 962a91ffe2143e148a98eb39b9b1c081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data:
+    time: 0
+    speed: 0
+    targets: []
+    highscores: []
 --- !u!4 &1863136457
 Transform:
   m_ObjectHideFlags: 0
