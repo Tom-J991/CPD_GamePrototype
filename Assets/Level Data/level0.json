@@ -1,9 +1,23 @@
 {
-	"time" : "42",
-	"speed" : "18",
+	"time" : "40",
+	"speed" : "200",
 	"targets" : [
-		"300",
-		"200",
-		"100"
+		"1200",
+		"900",
+		"500"
+	],
+	"highscores" : [
+		{
+			"name" : "Jackson",
+			"score" : 800,
+			"time" : 10,
+			"rank" : "A"
+		},
+		{
+			"name" : "Thomas",
+			"score" : 1200,
+			"time" : 3.4,
+			"rank" :  "A"
+		}
 	]
 }

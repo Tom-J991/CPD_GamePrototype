@@ -1,7 +1,7 @@
 // Score Script
 // by: Halen Finlay
 // date: 06/09/2023
-// last modified: 20/09/2023 12:34 AM by Jackson
+// last modified: 21/09/2023 12:34 AM by Jackson
 
 using System.Collections;
 using System.Collections.Generic;
@@ -15,11 +15,6 @@ public class Score : MonoBehaviour
     public TimerUI timerUI;
     [Tooltip("Reference to the ScoreUI canvas in the scene.")]
     public ScoreUI scoreUI;
-
-    [Header("Level Details")]
-    public float[] targetScores = { 300f, 200f, 100f };
-    public float targetTime = 40f;
-    public float targetSpeed = 20f;
 
     [Header("Score Variables")]
     public float finalScore;
@@ -70,6 +65,14 @@ public class Score : MonoBehaviour
     // Calculate the player's bonuses, penalties, and final score
     private void CalculateScore()
     {
+        LevelData data = GameObject.Find("LevelData").GetComponent<LevelJSONLoader>().data;
+        
+        if (data == null)
+        {
+            Debug.LogError("Object 'LevelData' does not exist in scene.");
+            return;
+        }
+
         // Calculate penalties
         // If no obstacles were hit, provide a bonus score instead
         float totalPenalties = 0;
@@ -86,27 +89,27 @@ public class Score : MonoBehaviour
         }
 
         // Calculate time bonus
-        if (m_timer >= targetTime)
+        if (m_timer >= data.time)
         {
             timeBonus = 0;
         }
         else
         {
-            timeBonus = Mathf.Floor(1800 * Mathf.Pow(targetTime - m_timer, 2) / Mathf.Pow(targetTime, 2));
+            timeBonus = Mathf.Floor(1800 * Mathf.Pow(data.time - m_timer, 2) / Mathf.Pow(data.time, 2));
         }
 
         if (timeBonus > 1000) timeBonus = 1000f;
 
         // Calculate speed bonus
-        speedBonus = Mathf.Floor(m_maxSpeed / targetSpeed * 600);
+        speedBonus = Mathf.Floor(m_maxSpeed / data.speed * 600);
 
         // Calculate final score based on all bonuses and penalties
         finalScore = timeBonus + speedBonus - totalPenalties;
 
         // Ranking system - probably could be improved
-        for(int i = 0; i < targetScores.Length; i++)
+        for(int i = 0; i < data.targets.Length; i++)
         {
-            if (finalScore >= targetScores[i])
+            if (finalScore >= data.targets[i])
             {
                 ranking = i;
                 break;
@@ -127,7 +130,7 @@ public class Score : MonoBehaviour
         // already in the list of collided objects, then add it to the list
         if (other.gameObject.tag == "Obstacle")
         {
-            if (m_hitObstacles.IndexOf(other.gameObject) < 0)
+            if (m_hitObstacles.IndexOf(other.gameObject) < 0) // IndexOf returns -1 if the object is not in the list
             {
                 m_hitObstacles.Add(other.gameObject);
             }
