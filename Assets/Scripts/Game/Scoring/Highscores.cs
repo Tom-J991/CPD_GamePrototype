@@ -34,17 +34,24 @@ public class Highscores : MonoBehaviour
             newEntry.transform.SetParent(scoreBoard.transform, false);
             //Get the entry fields
             TextMeshProUGUI[] textFields = newEntry.GetComponentsInChildren<TextMeshProUGUI>();
-            //Assign the name, score, time and rank to the respective fields
-            textFields[0].text = score.name;
-            textFields[1].text = score.score.ToString();
-            //Calculate time
-            float timer = score.time;
-            float minutes = Mathf.Floor(timer / 60);
-            float seconds = timer - minutes * 60;
-            textFields[2].text = minutes.ToString() + ":" + seconds.ToString("00.00");
-            textFields[3].text = "RANK " + score.rank;
-            //Enable the entry
-            newEntry.SetActive(true);
+            if (textFields.Length == 4)
+            {
+                //Assign the name, score, time and rank to the respective fields
+                textFields[0].text = score.name;
+                textFields[1].text = score.score.ToString();
+                //Calculate time
+                float timer = score.time;
+                float minutes = Mathf.Floor(timer / 60);
+                float seconds = timer - minutes * 60;
+                textFields[2].text = minutes.ToString() + ":" + seconds.ToString("00.00");
+                textFields[3].text = "RANK " + score.rank;
+                //Enable the entry
+                newEntry.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("Not all score fields found. :(");
+            }
         }
     }
 }
