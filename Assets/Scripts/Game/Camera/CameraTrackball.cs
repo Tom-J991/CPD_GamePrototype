@@ -1,7 +1,7 @@
 // Camera Trackball Script
 // by: Thomas Jackson
 // date: 6/09/2023 10:24AM
-// last modified: 7/09/2023 10:54AM
+// last modified: 21/09/2023 9:24AM
 
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,6 +11,8 @@ using UnityEngine.InputSystem;
 public class CameraTrackball : MonoBehaviour
 {
     // Properties
+    public Rigidbody rb;
+
     [Header("Orbit Properties")]
     [Tooltip("The speed at which the camera will rotate around the target.")]
     public float rotateSpeed = 1.0f;
@@ -35,8 +37,10 @@ public class CameraTrackball : MonoBehaviour
     // Trackball Logic.
     private Quaternion lookRotation = Quaternion.identity;
 
-    void Update()
+    void FixedUpdate()
     {
+        // Update camera in game.
+
         // Get Mouse Inputs.
         m_mousePosition = Mouse.current.delta.ReadValue();
         m_mouseClicked = Mouse.current.leftButton.ReadValue() >= 0.001f;
@@ -56,14 +60,11 @@ public class CameraTrackball : MonoBehaviour
             m_orbitAngles.y -= 360.0f;
 
         lookRotation = Quaternion.Euler(m_orbitAngles); // Convert euler axis to quaternion rotation.
-    }
 
-    void FixedUpdate()
-    {
-        // Update camera in game.
         //transform.localRotation = lookRotation; // Updates camera rotation.
-
-        transform.localRotation = Quaternion.Lerp(transform.localRotation, lookRotation, 0.1f);
+        //transform.localRotation = Quaternion.Lerp(transform.localRotation, lookRotation, 0.1f);
+        //rb.MoveRotation(lookRotation);
+        rb.MoveRotation(Quaternion.Lerp(transform.localRotation, lookRotation, rotateSpeed * Time.fixedDeltaTime));
     }
 
     void OnValidate()

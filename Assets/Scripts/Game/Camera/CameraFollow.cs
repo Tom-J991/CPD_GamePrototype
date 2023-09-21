@@ -1,19 +1,21 @@
 // Camera Follow Script
 // by: Thomas Jackson
 // date: 6/09/2023 9:52AM
-// last modified: 7/09/2023 10:54AM
+// last modified: 21/09/2023 9:24AM
 
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [ExecuteInEditMode]
-[RequireComponent(typeof(Camera))]
+[RequireComponent(typeof(Camera)), RequireComponent(typeof(Rigidbody))]
 public class CameraFollow : MonoBehaviour
 {
     // Properties
+    public Rigidbody rb;
+
     [Header("Follow Target")]
     [Tooltip("The target's transform which the camera will follow.")]
-    public Transform targetObject;
+    public Rigidbody targetObject;
 
     [SerializeField]
     [Tooltip("The default distance to offset the camera from the target's transform.")]
@@ -61,7 +63,8 @@ public class CameraFollow : MonoBehaviour
     {
         // Update camera's position on value change.
         // This allows the camera to be updated automatically in edit mode.
-        FollowTarget();
+        if (targetObject != null)
+            FollowTarget();
     }
 
     // Follow logic.
@@ -69,7 +72,8 @@ public class CameraFollow : MonoBehaviour
     {
         // Find new camera position by taking the target's position and adding a distance offset based on the camera's forward vector
         // and then adding a height offset based on the camera's up vector.
-        followPosition = targetObject.position - (transform.forward * (distance - m_targetZoom)) + (transform.up * height);
-        transform.position = followPosition;
+        followPosition = targetObject.transform.position - (rb.transform.forward * (distance - m_targetZoom)) + (rb.transform.up * height);
+        //transform.position = followPosition;
+        rb.MovePosition(followPosition); 
     }
 }
