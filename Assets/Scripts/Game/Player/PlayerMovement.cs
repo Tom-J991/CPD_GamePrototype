@@ -1,7 +1,7 @@
 // Player Movement Script
 // by: Thomas Jackson
 // date: 6/09/2023 9:30AM
-// last modified: 7/09/2023 11:21AM
+// last modified: 21/09/2023 9:39 AM by Jackson
 
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -37,10 +37,15 @@ public class PlayerMovement : MonoBehaviour
    
     // References
     Rigidbody m_rb;
+    AudioSource m_rollingSource;
+    AudioSource m_collisionSource;
 
     void Start()
     {
         m_rb = GetComponent<Rigidbody>(); // Get reference to Rigidbody component.
+        // Get audio sources
+        m_rollingSource = GetComponent<AudioSource>();
+        m_collisionSource = GetComponentInChildren<Collider>().GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -84,6 +89,8 @@ public class PlayerMovement : MonoBehaviour
 
             m_rb.AddForce(moveVector * Time.fixedDeltaTime, ForceMode.Impulse);
         }
+
+        MovementAudio();
     }
 
     private void OnGUI()
@@ -118,5 +125,20 @@ public class PlayerMovement : MonoBehaviour
     public void AltOnDrift(bool _value)
     {
         m_onDrift = _value;
+    }
+
+    void MovementAudio()
+    {
+        m_rollingSource.volume = m_rb.velocity.magnitude / movementSpeed;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // When the player hits a wall or obstacle, play the hit sound.
+        if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "Obstacle")
+        {
+            m_collisionSource.Play();
+            m_collisionSource.volume = m_rb.velocity.magnitude / 28;
+        }
     }
 }
