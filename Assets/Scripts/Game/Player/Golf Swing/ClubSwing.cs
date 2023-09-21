@@ -1,7 +1,7 @@
 // Club Swing script
 // by: Halen
 // created: 14/09/2023
-// last edited: 14/09/2023
+// last edited: 21/09/2023 9:39 AM by Jackson
 
 using System.Collections;
 using System.Collections.Generic;
@@ -46,6 +46,7 @@ public class ClubSwing : MonoBehaviour
     private float m_startTime;
 
     public bool m_waitingForPlayer = true;
+    AudioSource m_audioSource;
 
     public enum SwingState
     {
@@ -72,6 +73,9 @@ public class ClubSwing : MonoBehaviour
 
         // Get the range of the launch meter bar for the UI
         m_barRange = (bar.transform.parent.GetComponent<RectTransform>().sizeDelta.y - 10 - bar.GetComponent<RectTransform>().sizeDelta.y / 2) / 2;
+
+        // Get audio source
+        m_audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -130,6 +134,9 @@ public class ClubSwing : MonoBehaviour
 
                 // add launch force
                 player.AddRelativeForce(player.transform.forward * m_swingForce, ForceMode.Impulse);
+
+                // play sound
+                m_audioSource.Play();
 
                 // stop swinging
                 state = SwingState.Complete;

@@ -1,3 +1,7 @@
+// Death box script
+// by Jackson / Halen
+// Last edited 21/9/23 9:37 AM
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,9 +21,20 @@ public class DeathBox : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            // stop all audio sources
+            AudioSource[] sources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+            foreach(AudioSource source in sources)
+            {
+                source.Stop();
+            }
+
+            // kill the player
             Destroy(other.gameObject);
+            // unlock the mouse
             FindObjectOfType<GameManager>().UnlockMouse();
+            // display the game over screen
             deathCanvas.gameObject.SetActive(true);
+
         }
     }
 }
