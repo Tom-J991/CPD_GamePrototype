@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         Camera cam = Camera.main; // Camera must be tagged as MainCamera
 
         // Physics logic.
-        m_isGrounded = Physics.CheckSphere(groundCheck.position, 0.04f, groundMask); // Check if the ball is on the ground.
+        m_isGrounded = Physics.CheckSphere(groundCheck.position, 0.08f, groundMask); // Check if the ball is on the ground.
 
         // Tee off logic.
 
@@ -88,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnGUI()
     {
+        // TODO: Create proper Meter
         if (Application.isEditor)
         {
             GUI.Label(new Rect(0, 0, 800, 600), (m_boostMeter).ToString());
