@@ -2,7 +2,7 @@
 // Currently manages mouse locking.
 // by: Thomas Jackson
 // date: 6/09/2023 12:10AM
-// last modified: 20/09/2023 12:05 AM by Jackson
+// last modified: 21/09/2023 4:02 PM by Jackson
 
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField, Tooltip("En/Disables mouse locking")]
     bool m_doMouseLock;
+    [SerializeField]
+    bool m_ForceMobilePlatform = false;
     void Awake()
     {
         if (m_doMouseLock)
@@ -52,6 +54,18 @@ public class GameManager : MonoBehaviour
 
     public void PlatformCheck()
     {
+        if (m_ForceMobilePlatform)
+        {
+            foreach (GameObject go in m_unqiueMobileObjects)
+            {
+                go.SetActive(true);
+            }
+            foreach (GameObject go in m_unqiueDesktopObjects)
+            {
+                go.SetActive(false);
+            }
+            return;
+        }
         switch (SystemInfo.deviceType)
         {
             case DeviceType.Handheld:

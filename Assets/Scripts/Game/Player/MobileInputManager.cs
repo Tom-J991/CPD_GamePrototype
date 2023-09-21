@@ -1,6 +1,6 @@
 //Mobile Input Manager
 //by Jackson
-//Last edited 14/9/2023 11:13 am
+//Last edited 21/9/2023 4:39 PM
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,12 +9,13 @@ using UnityEngine.Events;
 public class MobileInputManager : MonoBehaviour
 {
     Vector2 m_fingerPosition;
-    float m_initialFingerY;
+    Vector2 m_initialFingerPos;
     [SerializeField]
     [Tooltip("The distance from the initial finger placement at which the player begins drifting.\nIgnores the X axis.")]
     float m_driftThreashhold;
     bool m_userDrifting;
     bool m_readInputs = true;
+    [SerializeField] bool m_allowTurnActionsWhileDrifting = false;
 
     PlayerMovement m_movement;
 
@@ -22,6 +23,9 @@ public class MobileInputManager : MonoBehaviour
     Image m_leftIcon;
     [SerializeField]
     Image m_rightIcon;
+    [SerializeField]
+    Image m_initalTouchIndecator;
+    public float DEBUG;
 
     [SerializeField]
     ClubSwing m_clubSwing;
@@ -52,8 +56,6 @@ public class MobileInputManager : MonoBehaviour
                 if (m_clubSwing.m_waitingForPlayer)
                 {
                     m_clubSwing.TriggerStartSwing();
-                    m_leftIcon.enabled = true;
-                    m_rightIcon.enabled = true;
                 }
                 else
                 {
@@ -61,23 +63,29 @@ public class MobileInputManager : MonoBehaviour
                     m_fingerPosition = Input.GetTouch(0).position;
                     if (Input.GetTouch(0).phase == TouchPhase.Began)
                     {
-                        m_initialFingerY = m_fingerPosition.y;
+                        m_initialFingerPos = m_fingerPosition;
+                        m_initalTouchIndecator.rectTransform.anchoredPosition = new Vector2(m_initialFingerPos.x / 10, 0);
+                    }
+                    else if(Input.GetTouch(0).phase == TouchPhase.Ended)
+                    {
+                        //m_initalTouchIndecator.rectTransform.anchoredPosition = new Vector2(m_initalTouchIndecator.rectTransform.sizeDelta.x * -2, 0);
                     }
 
                     //Compare positions
-                    //If we're over half of the screen's width, we're on the right side
-                    if (m_fingerPosition.x > Screen.width / 2)
+                    if (m_fingerPosition.x > m_initialFingerPos.x)
                     {
-                        RightSideAction();
+                        if (!m_userDrifting) RightSideAction(); 
+                        else if (m_allowTurnActionsWhileDrifting) RightSideAction();
                     }
-                    else
+                    else if (m_fingerPosition.x < m_initialFingerPos.x)
                     {
-                        LeftSideAction();
+                        if (!m_userDrifting) LeftSideAction();
+                        else if (m_allowTurnActionsWhileDrifting) LeftSideAction();
                     }
 
                     //Check the difference between the initial finger placement and current placement
                     //Not using |ABS| here as we only want to check if the player is pulling down
-                    if (!m_userDrifting && m_initialFingerY - m_fingerPosition.y > m_driftThreashhold)
+                    if (!m_userDrifting && m_initialFingerPos.y - m_fingerPosition.y > m_driftThreashhold)
                     {
                         StartDrifting();
                     }
@@ -103,12 +111,10 @@ public class MobileInputManager : MonoBehaviour
         {
         }
          */
-            m_leftIcon.color = Color.green;
             m_leftActionStart.Invoke();
 
         if (Input.GetTouch(0).phase == TouchPhase.Ended)
         {
-            m_leftIcon.color = Color.white;
             m_leftActionEnd.Invoke();
         }
     }
@@ -125,12 +131,10 @@ public class MobileInputManager : MonoBehaviour
         {
         }
          */
-            m_rightIcon.color = Color.green;
             m_rightActionStart.Invoke();
 
         if (Input.GetTouch(0).phase == TouchPhase.Ended)
         {
-            m_rightIcon.color = Color.white;
             m_rightActionEnd.Invoke();
         }
     }
