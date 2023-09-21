@@ -1,10 +1,11 @@
 // Player Movement Script
 // by: Thomas Jackson
 // date: 6/09/2023 9:30AM
-// last modified: 21/09/2023 9:39 AM by Jackson
+// last modified: 21/09/2023 9:39 AM by Thomas
 
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(PlayerInput))]
 public class PlayerMovement : MonoBehaviour
@@ -26,6 +27,13 @@ public class PlayerMovement : MonoBehaviour
     public float maxBoost = 1024.0f;
     public float boostIncrement = 1024.0f;
 
+    [Header("UI")]
+    [Tooltip("Reference to the swing meter bar.")]
+    public Image bar;
+
+    [Tooltip("The canvas that displays the launch meter before swinging.")]
+    public GameObject meterCanvas;
+
     // Variables
     bool m_hasBeenHit = true;
 
@@ -34,7 +42,9 @@ public class PlayerMovement : MonoBehaviour
 
     bool m_onDrift = false;
     float m_boostMeter = 0.0f;
-   
+
+    float m_barRange;
+
     // References
     Rigidbody m_rb;
     AudioSource m_rollingSource;
@@ -46,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
         // Get audio sources
         m_rollingSource = GetComponent<AudioSource>();
         m_collisionSource = GetComponentInChildren<Collider>().GetComponent<AudioSource>();
+
+        m_barRange = (bar.transform.parent.GetComponent<RectTransform>().sizeDelta.y - 10 - bar.GetComponent<RectTransform>().sizeDelta.y / 2) / 2;
     }
 
     void FixedUpdate()
@@ -67,6 +79,12 @@ public class PlayerMovement : MonoBehaviour
             // Builds up boost meter when button is held and ball is grounded.
             m_boostMeter += boostIncrement * Time.fixedDeltaTime;
             m_boostMeter = Mathf.Clamp(m_boostMeter, 0.0f, maxBoost);
+
+            meterCanvas.SetActive(true); // Enable Boost Meter.
+            // Set position of bar meter.
+            float ratio = m_boostMeter / maxBoost * 2.0f;
+            float barPosition = m_barRange * ratio - m_barRange;
+            bar.transform.localPosition = new Vector2(bar.transform.localPosition.x, barPosition);
         }
 
         if (!m_onDrift && m_boostMeter > 0.0f)
@@ -78,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
             m_rb.AddForce(boostVector * Time.fixedDeltaTime, ForceMode.Impulse);
 
             m_boostMeter = 0.0f; // Reset boost meter.
+            meterCanvas.SetActive(false); // Disable Boost Meter.
         }
 
         // Player movement logic.
@@ -91,15 +110,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         MovementAudio();
-    }
-
-    private void OnGUI()
-    {
-        // TODO: Create proper Meter
-        if (Application.isEditor)
-        {
-            GUI.Label(new Rect(0, 0, 800, 600), (m_boostMeter).ToString());
-        }
     }
 
     // New Input System
