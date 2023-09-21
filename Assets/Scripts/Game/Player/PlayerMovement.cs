@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
         m_barRange = (bar.transform.parent.GetComponent<RectTransform>().sizeDelta.y - 10 - bar.GetComponent<RectTransform>().sizeDelta.y / 2) / 2;
     }
 
+    float boostInc = 0.0f;
     void FixedUpdate()
     {
         Camera cam = Camera.main; // Camera must be tagged as MainCamera
@@ -77,7 +78,9 @@ public class PlayerMovement : MonoBehaviour
         if (m_onDrift && m_isGrounded)
         {
             // Builds up boost meter when button is held and ball is grounded.
-            m_boostMeter += boostIncrement * Time.fixedDeltaTime;
+            boostInc += boostIncrement * Time.fixedDeltaTime;
+            boostInc *= m_rb.velocity.magnitude;
+            m_boostMeter += boostInc * Time.fixedDeltaTime;
             m_boostMeter = Mathf.Clamp(m_boostMeter, 0.0f, maxBoost);
 
             meterCanvas.SetActive(true); // Enable Boost Meter.
