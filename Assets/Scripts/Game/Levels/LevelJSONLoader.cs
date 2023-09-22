@@ -9,6 +9,8 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using UnityEngine.Networking;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class LevelData
@@ -32,6 +34,7 @@ public class LevelJSONLoader : MonoBehaviour
     private void LoadLevelData()
     {
         // https://www.newtonsoft.com/json/help/html/SerializingJSON.htm
-        data = JsonConvert.DeserializeObject<LevelData>(File.ReadAllText("Assets/Level Data/level0.json"));
+        data = JsonConvert.DeserializeObject<LevelData>(Resources.Load<TextAsset>("Level Data/level0").text);
+
     }
 }
