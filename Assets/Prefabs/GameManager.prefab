@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_unqiueMobileObjects: []
   m_unqiueDesktopObjects: []
-  m_doMouseLock: 1
+  m_doMouseLock: 0
   m_ForceMobilePlatform: 0

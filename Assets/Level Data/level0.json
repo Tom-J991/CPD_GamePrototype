@@ -6,18 +6,66 @@
 		"900",
 		"500"
 	],
-	"highscores" : [
+	"highscores": [
 		{
-			"name" : "Jackson",
-			"score" : 800,
-			"time" : 10,
-			"rank" : "A"
+			"name": "JAC",
+			"score": 1543,
+			"time": 11.12,
+			"rank": "A"
 		},
 		{
-			"name" : "Thomas",
-			"score" : 1200,
-			"time" : 3.4,
-			"rank" :  "A"
+			"name": "JAC",
+			"score": 1324,
+			"time": 8.99,
+			"rank": "A"
+		},
+		{
+			"name": "JAC",
+			"score": 1321,
+			"time": 7.29,
+			"rank": "A"
+		},
+		{
+			"name": "HAL",
+			"score": 1300,
+			"time": 3.49,
+			"rank": "A"
+		},
+		{
+			"name": "TOM",
+			"score": 1296,
+			"time": 3.55,
+			"rank": "A"
+		},
+		{
+			"name": "TOM",
+			"score": 1293,
+			"time": 3.48,
+			"rank": "A"
+		},
+		{
+			"name": "JAC",
+			"score": 1291,
+			"time": 4.22,
+			"rank": "A"
+		},
+		{
+			"name": "JAC",
+			"score": 1269,
+			"time": 9.94,
+			"rank": "A"
+		},
+		{
+			"name": "TOM",
+			"score": 1264,
+			"time": 3.86,
+			"rank": "A"
+		},
+		{
+			"name": "TOM",
+			"score": 1264,
+			"time": 3.95,
+			"rank": "A"
 		}
 	]
 }

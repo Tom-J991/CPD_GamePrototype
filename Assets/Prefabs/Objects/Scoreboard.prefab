@@ -722,47 +722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f16ac15f39e967149b95b54e0564392b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highscores:
-  - name: JAC
-    score: 1543
-    time: 11.21
-    rank: 65
-  - name: JAC
-    score: 1324
-    time: 8.99
-    rank: 65
-  - name: JAC
-    score: 1321
-    time: 7.29
-    rank: 65
-  - name: HAL
-    score: 1300
-    time: 3.49
-    rank: 65
-  - name: JAC
-    score: 1291
-    time: 4.22
-    rank: 65
-  - name: TOM
-    score: 1264
-    time: 3.86
-    rank: 65
-  - name: TOM
-    score: 1264
-    time: 3.95
-    rank: 65
-  - name: TOM
-    score: 1049
-    time: 3.78
-    rank: 66
-  - name: TOM
-    score: 1296
-    time: 3.55
-    rank: 65
-  - name: TOM
-    score: 1293
-    time: 3.48
-    rank: 65
+  highscores: []
   scoreBoard: {fileID: 220717803236972102}
   scoreEntryTemplate: {fileID: 220717802824512964}
 --- !u!1 &220717803119004555

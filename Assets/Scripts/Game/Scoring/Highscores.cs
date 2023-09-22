@@ -1,6 +1,6 @@
 //Highscore script
 //by Halen & Jackson
-//Last Edited 21/9/23 4:30 PM
+//Last Edited 22/9/23 11:00 AM
 
 using System.Collections;
 using System.Collections.Generic;
@@ -22,35 +22,54 @@ public class Highscores : MonoBehaviour
 
     public GameObject scoreBoard;
     public GameObject scoreEntryTemplate;
-    //public List<Transform> entryFields;
 
-    private void Start()
+    bool scoresLoaded = false;
+    LevelJSONLoader JSONscores;
+    void Start()
     {
-        scoreEntryTemplate.SetActive(false);
-        foreach(HighScore score in highscores)
+        JSONscores = FindObjectOfType<LevelJSONLoader>();
+    }
+    void Update()
+    {
+        if (!scoresLoaded)
         {
-            //Make a new entry and attach it to the board
-            GameObject newEntry = Instantiate(scoreEntryTemplate);
-            newEntry.transform.SetParent(scoreBoard.transform, false);
-            //Get the entry fields
-            TextMeshProUGUI[] textFields = newEntry.GetComponentsInChildren<TextMeshProUGUI>();
-            if (textFields.Length == 4)
+            HighScore[] scores = JSONscores.data.highscores;
+            if (scores.Length != 10)
             {
-                //Assign the name, score, time and rank to the respective fields
-                textFields[0].text = score.name;
-                textFields[1].text = score.score.ToString();
-                //Calculate time
-                float timer = score.time;
-                float minutes = Mathf.Floor(timer / 60);
-                float seconds = timer - minutes * 60;
-                textFields[2].text = minutes.ToString() + ":" + seconds.ToString("00.00");
-                textFields[3].text = "RANK " + score.rank;
-                //Enable the entry
-                newEntry.SetActive(true);
+                Debug.LogError("Highscores not yet loaded!");
+                return;
             }
             else
             {
-                Debug.Log("Not all score fields found. :(");
+
+                scoreEntryTemplate.SetActive(false);
+                foreach (HighScore score in scores)
+                {
+                    //Make a new entry and attach it to the board
+                    GameObject newEntry = Instantiate(scoreEntryTemplate);
+                    newEntry.transform.SetParent(scoreBoard.transform, false);
+                    //Get the entry fields
+                    TextMeshProUGUI[] textFields = newEntry.GetComponentsInChildren<TextMeshProUGUI>();
+                    if (textFields.Length == 4)
+                    {
+                        //Assign the name, score, time and rank to the respective fields
+                        textFields[0].text = score.name;
+                        textFields[1].text = score.score.ToString();
+                        //Calculate time
+                        float timer = score.time;
+                        float minutes = Mathf.Floor(timer / 60);
+                        float seconds = timer - minutes * 60;
+                        textFields[2].text = minutes.ToString() + ":" + seconds.ToString("00.00");
+                        textFields[3].text = "RANK " + score.rank;
+                        //Enable the entry
+                        newEntry.SetActive(true);
+                        scoresLoaded = true;
+                    }
+                    else
+                    {
+                        Debug.Log("Not all score fields found. :(");
+                    }
+                }
             }
         }
     }

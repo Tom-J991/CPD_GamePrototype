@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField, Tooltip("En/Disables mouse locking")]
     bool m_doMouseLock;
-    [SerializeField]
+    [SerializeField, Tooltip("Only enable for testing purposes!!"), Header("TESTING ONLY")]
     bool m_ForceMobilePlatform = false;
     void Awake()
     {
